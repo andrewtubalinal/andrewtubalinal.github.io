@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANDREW ★ Official Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper fade-in">
+        <div class="sub-wrapper fade-in">
+            <header>
+                <h1>JOHN ANDREW TUBALINAL</h1>
+                <h3>OFFICIAL PORTFOLIO WEBSITE</h3>
+            </header>
+            <navigation-page></navigation-page>
+            <footer-page></footer-page>
+        </div>
+        <div class="arc-gif" ng-click="addChatBubble()" ng-controller="HomeController()">
+            <img src="/./assets/archarddeity.gif" height="200px">
+        </div>        
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="index.js"></script>
+    <script src="navigation/navigation.js"></script>
+    <script src="footer/footer.js"></script> 
+
+    <div class="popup" ng-show="isPopupVisible">
+        <form>
+            <label for="name">Enter your name:</label><br>
+            <input type="text" id="name" name="name" ng-model="user.name"><br><br>
+            <button type="button" ng-click="hidePopup()">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

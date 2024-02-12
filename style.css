@@ -1,0 +1,270 @@
+body {
+    font: 75%/2 "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
+    margin: 0;
+    background: url("assets/main-bg.png");
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.arc-gif {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.arc-gif > img:hover {
+    opacity: 0.2;
+}
+
+header {
+    color: #FFF;
+    text-align: center;
+    padding: 1rem;
+    background: url(/./assets/paint-splat.png);
+    background-size: cover;
+    background-position: center;
+    filter: invert(1);
+}
+
+header h1 {
+    margin-bottom: 0;
+    font-size: 70px;
+    letter-spacing: -7px;
+    font-weight: 700;
+}
+
+header h3 {
+    margin-top: 0;
+    letter-spacing: 20px;
+    font-size: 18px;
+    font-weight: unset;
+}
+
+.custom-nav {
+    background-color: transparent;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.custom-nav ul li {
+    padding: 10px 30px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(64, 224, 208, 0.8);
+    cursor: pointer;
+}
+
+.custom-nav ul li:hover,
+.custom-nav ul li.active {
+    background-color: #FFFFFF;
+    color: #000000;
+    transform: translateY(5px);
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.sub-wrapper {
+    width: 1600px;
+    max-width: 1600px;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-content {
+    width: 100%;
+    background: rgba(0,0,0,0.9);
+    color: #FFFFFF;
+    padding: 20px;
+    font-weight: 700;
+}
+
+.main-content.left,
+.content-with-img.right:nth-child(even) .main-content {
+    background: rgba(0,0,0,0.9);
+    color: #FFFFFF;
+}
+
+.main-content.right,
+.content-with-img.left:nth-child(even) .main-content {
+    background: rgb(0 29 55 / 80%);
+    color: #FFFFFF;
+}
+
+.main-content p {
+    margin-top: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.content-with-img {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.content-with-img div img {
+    height: 400px;
+}
+
+.answer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.answer.right{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* .main-content.right h1, .main-content.right p {
+    text-align: right;
+} */
+
+.welcome-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.left-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wrapper, .sub-wrapper, header {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.footer-container {
+    padding: 20px 0;
+    background: transparent;
+    color: #FFF;
+    margin: 10px 0 0;
+    font-weight: 700;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 9999; /* Ensure the popup is on top */
+    display: none;
+}
+
+/* ARC CSS */
+
+.arc-gif {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.chat-bubble {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* SCROLLBAR CSS */
+
+* {
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(64, 224, 208, 1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

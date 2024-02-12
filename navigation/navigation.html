@@ -1,0 +1,11 @@
+<div class="contents" ng-controller="NavigationController">
+    <div class="custom-nav">
+        <ul>
+            <li ng-repeat="page in pageRoutes" ng-click="setTab(page.url)" ng-class="{ 'active': activeTab === page.url }">
+                <a>{{page.name}}</a>
+            </li> 
+        </ul> 
+    </div>  
+
+    <div ng-include="activeTab ? currentPage.url : defaultPage"></div>
+</div>
