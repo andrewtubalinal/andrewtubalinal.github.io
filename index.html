@@ -6,7 +6,8 @@
     <title>ANDREW ★ Official Portfolio Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<!-- Inline Background for quicker background load -->
+<body style="background: url(assets/main-bg.png); background-size: cover;"> 
     <div class="wrapper fade-in">
         <div class="sub-wrapper fade-in">
             <header>
@@ -16,9 +17,9 @@
             <navigation-page></navigation-page>
             <footer-page></footer-page>
         </div>
-        <div class="arc-gif" ng-click="addChatBubble()" ng-controller="HomeController()">
+        <div class="arc-gif">
             <img src="/./assets/archarddeity.gif" height="200px">
-        </div>        
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

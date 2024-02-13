@@ -39,6 +39,7 @@ app.controller('HomeController', function($scope) {
 });
 
 
+
 window.addEventListener('load', function() {
     fadeInElements();
 });
