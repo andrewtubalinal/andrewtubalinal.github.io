@@ -1,10 +1,11 @@
 body {
-    font: 75%/2 "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
     margin: 0;
-    background: url("assets/main-bg.png");
+    background: url(assets/main-bg.png);
     background-size: cover;
     opacity: 0;
     transition: opacity 1s ease;
+    font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
+    font-size: 13px;
 }
 
 .arc-gif {
