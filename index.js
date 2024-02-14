@@ -36,6 +36,7 @@ app.controller('HomeController', function($scope) {
             chatBubble.remove();
         }, 3000);
     };
+
 });
 
 

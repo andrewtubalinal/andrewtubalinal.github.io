@@ -98,8 +98,12 @@ a {
     gap: 10px;
 }
 
+.main-content.announcement {
+    text-align: center;
+    color: #ff9797;
+}
+
 .main-content {
-    width: 100%;
     background: rgba(0,0,0,0.9);
     color: #FFFFFF;
     padding: 20px;
@@ -217,6 +221,11 @@ a {
     display: none;
 }
 
+.main-content .no-margin.announcement > span {
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
 /* ARC CSS */
 
 .arc-gif {
@@ -245,6 +254,7 @@ a {
         transform: translateY(0);
     }
 }
+
 
 
 /* SCROLLBAR CSS */
