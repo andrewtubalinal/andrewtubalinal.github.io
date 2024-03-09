@@ -5,16 +5,25 @@ body {
     transition: opacity 1s ease;
     font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
     font-size: 13px;
+    background: url(assets/main-bg-compressed.png); 
+    background-size: cover;
 }
 
 .arc-gif {
-    position: fixed;
+    position: relative;
     right: 0;
     bottom: 0;
 }
 
-.arc-gif > img:hover {
-    opacity: 0.2;
+.dialogBox {
+    width: 100px;
+    height: 180px;
+    background-color: red;
+    position: absolute;
+    left: -20px;
+    bottom: 0;
+    transform: translate(-50%, 0%);
+    display: none;
 }
 
 header {
@@ -340,6 +349,10 @@ a {
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease;
+}
+
+.sub-wrapper header > h1 {
+    animation-duration: 1s;
 }
 
 @keyframes fadeIn {
