@@ -3,7 +3,7 @@ angular.module('myApp')
         templateUrl: 'navigation/navigation.html',
         controller: 'NavigationController'
     })
-    .controller('NavigationController', function($scope, $location) {
+    .controller('NavigationController', function($scope, $location, $window) {
         $scope.pageRoutes = [
             { id: '1', name: 'Background', url: 'pages/background.html'},
             { id: '2', name: 'Information', url: 'pages/information.html' },
@@ -16,6 +16,10 @@ angular.module('myApp')
             { id: '9', name: 'Blog', url: 'pages/blog.html' },
             { id: '10', name: 'Credit/s', url: 'pages/credits.html' },
         ];
+
+        $scope.refreshPage = function() {
+            $window.location.reload();
+        };
 
         $scope.defaultPage = 'pages/welcome.html';
         $scope.activeTab = '';

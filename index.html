@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANDREW ★ Official Portfolio Website</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <!-- Inline Background for quicker background load -->
-<body style="background: url(assets/main-bg-compressed.png); background-size: cover;"> 
+<body style="background: url(assets/main-bg-compressed.png);background-size: cover;background-repeat: no-repeat;"> 
     <div class="wrapper fade-in">
         <div class="sub-wrapper fade-in">
-            <header>
-                <h1>JOHN ANDREW TUBALINAL</h1>
-                <h3>OFFICIAL PORTFOLIO WEBSITE</h3>
+            <header ng-controller="NavigationController" ng-click="refreshPage()"> 
+                <h1 class="animate__animated animate__slideInLeft">JOHN ANDREW TUBALINAL</h1>
+                <h3>OFFICIAL PORTFOLIO WEBSITE</h3> 
             </header>
             <navigation-page></navigation-page>
             <footer-page></footer-page>
         </div>
-        <div class="arc-gif">
+        <!-- <div class="arc-gif">
             <img src="/./assets/archarddeity.gif" height="200px">
-        </div>
+        </div> -->
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -28,12 +29,5 @@
     <script src="navigation/navigation.js"></script>
     <script src="footer/footer.js"></script> 
 
-    <!-- <div class="popup" ng-show="isPopupVisible">
-        <form>
-            <label for="name">Enter your name:</label><br>
-            <input type="text" id="name" name="name" ng-model="user.name"><br><br>
-            <button type="button" ng-click="hidePopup()">Submit</button>
-        </form>
-    </div> -->
 </body>
 </html>
