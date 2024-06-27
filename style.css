@@ -90,6 +90,7 @@ header h3 {
     background-color: rgba(64, 224, 208, 0.8);
     cursor: pointer;
     transition: .1s ease-in-out;
+    border: 3px solid transparent;
 }
 
 .custom-nav ul li:hover,
@@ -333,6 +334,10 @@ a {
     text-align: right;
 }
 
+.main-content.resume > img {
+    width: 100%;
+}
+
 /* ARC CSS */
 
 .arc-gif {
@@ -355,6 +360,8 @@ a {
     animation-duration: 1s;
 }
 
+/* KEYFRAMES */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -376,7 +383,7 @@ a {
 
 
 
-/* SCROLLBAR CSS */
+/* SCROLLBAR */
 
 * {
     scrollbar-width: thin;

@@ -2,10 +2,10 @@
     <div class="custom-nav">
         <ul>
             <li ng-repeat="page in pageRoutes" ng-click="setTab(page.url)" ng-class="{ 'active': activeTab === page.url }">
-                <a>{{page.name}}</a>
+                <a>{{page.name}}</a> 
             </li> 
         </ul> 
     </div>  
 
-    <div ng-include="activeTab ? currentPage.url : defaultPage" ></div>
+    <div ng-include="activeTab ? currentPage.url : defaultPage" class="animate__animated animate__slideInUp" style="animation-duration: .5s;"></div>
 </div>

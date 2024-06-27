@@ -5,8 +5,8 @@ angular.module('myApp')
     })
     .controller('NavigationController', function($scope, $location, $window) {
         $scope.pageRoutes = [
-            { id: '1', name: 'Background', url: 'pages/background.html'},
-            { id: '2', name: 'Information', url: 'pages/information.html' },
+            { id: '1', name: 'Resume', url: 'pages/resume.html' },
+            { id: '2', name: 'Background', url: 'pages/background.html'},
             { id: '3', name: 'Education', url: 'pages/education.html' },
             { id: '4', name: 'Personality', url: 'pages/personality.html' },
             { id: '5', name: 'Development', url: 'pages/development.html' },
