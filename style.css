@@ -302,13 +302,18 @@ a {
 .blog-content,
 .patch-content {
     display: flex;
-    padding: 40px 0 20px;
+    padding: 20px 0;
     flex-direction: column;
 }
 
 .blog-content p,
 .patch-content p {
     margin: 0;
+}
+
+.blog-content p br,
+.patch-content p br {
+    content: "";
 }
 
 .main-content.background {
