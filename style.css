@@ -343,6 +343,20 @@ a {
     width: 100%;
 }
 
+.main-content.education h1 {
+    color: #7abdff;
+    margin-bottom: 0 !important;
+}
+
+.main-content.education div > h4 {
+    margin-top: 0;
+}
+
+.main-content.education div > p {
+    text-align: justify;
+}
+
+
 /* ARC CSS */
 
 .arc-gif {
