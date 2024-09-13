@@ -355,7 +355,8 @@ a {
     width: 100%;
 }
 
-.main-content.education h1 {
+.main-content.education h1,
+.main-content.personality h1 {
     color: #7abdff;
     margin-bottom: 0 !important;
 }
