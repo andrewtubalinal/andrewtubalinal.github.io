@@ -277,6 +277,12 @@ a {
     overflow: hidden;
 }
 
+.main-content.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .welcome-gif > img {
     width: 100%;
     transform: translateY(-350px);
@@ -339,6 +345,12 @@ a {
     text-align: right;
 }
 
+.main-container.resume {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .main-content.resume > img {
     width: 100%;
 }
@@ -354,6 +366,18 @@ a {
 
 .main-content.education div > p {
     text-align: justify;
+}
+
+.main-content.best-video {
+    text-align: center;
+}
+
+.main-content.best-video h1 a:hover {
+    color: #ff9797;
+}
+
+.main-content.best-video h1 > a {
+    color: #fff;
 }
 
 
