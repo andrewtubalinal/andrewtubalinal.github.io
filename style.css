@@ -403,6 +403,23 @@ a {
     animation-duration: 1s;
 }
 
+.main-content.personality p > a {
+    color: #FFF;
+}
+
+.main-content.personality p > a:hover {
+    color: #000;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.link-elegant:hover {
+    background-color: #7abdff;
+    padding: 20px; 
+}
+
 /* KEYFRAMES */
 
 @keyframes fadeIn {

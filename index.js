@@ -12,8 +12,15 @@ app.controller('CommonController', function($scope) {
     $rootScope.displayDialog = function () {
 
     }
-});
+    $scope.bvePage = '/bve.html';
+    $rootScope.setTimeout = function() {
+        setTimeout(function(){
+            self.close(bvePage);
+        },2000);
+    }
 
+    
+});
 
 window.addEventListener('load', function() {
     fadeInElements();
