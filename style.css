@@ -373,12 +373,36 @@ a {
     text-align: center;
 }
 
+.lang-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.lang-images > p {
+    margin: 0;
+}
+
 .main-content.best-video h1 a:hover {
     color: #ff9797;
 }
 
 .main-content.best-video h1 > a {
     color: #fff;
+}
+
+.language-img-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.lang-images > img {
+    width: 250px;
+    height: 250px;
 }
 
 
