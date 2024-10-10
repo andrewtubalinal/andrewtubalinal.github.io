@@ -3,8 +3,12 @@
         <h1>Technologies used with Professional Experience</h1>
         <div class="language-img-container">
             <div ng-repeat="language in languages" class="lang-images"> 
-                <img src="/assets/{{language.name}}.png" alt="" class="src">
-                <p>{{language.title}}</p>
+                <!-- <img src="/assets/{{language.name}}.png" alt="" class="src">
+                <p>{{language.title}}</p> -->
+                <slick infinite=true slides-to-show=1 slides-to-scroll=3>
+                    <img src="/assets/{{language.name}}.png" alt="" class="src">
+                    <p>{{language.title}}</p>
+                </slick>
             </ul> 
         </div> 
     </div>

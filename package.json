@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angularjs-slickcarousel-directive": "^1.2.1",
     "animate.css": "^4.1.1"
   }
 }
