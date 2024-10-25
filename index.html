@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../node_modules/slick-carousel/slick/slick.css">
     <link rel="stylesheet" href="../node_modules/slick-carousel/slick/slick-theme.css">
 </head>
-<body style="background: url(assets/main-bg-compressed.png);background-size: cover;background-repeat: no-repeat;"> 
+<body> 
     <div class="wrapper fade-in">
         <div class="sub-wrapper fade-in">
             <header ng-controller="NavigationController" ng-click="refreshPage()"> 
@@ -21,6 +21,17 @@
             <footer-page></footer-page>
         </div>
     </div>
+    <div class="music-container">
+        <audio id= "bg-music" controls="controls" onloadeddata="audioVolume()" autoplay>
+            <source src="audio/bg-music.ogg"  type="audio/ogg">
+        </audio>
+    </div>
+    <script>
+        function audioVolume() {
+        var myAudio = document.getElementById("bg-music");  
+        myAudio.volume = 0.1;
+        }
+    </script>
 
     <!-- <div class="light-dark-mode">
         

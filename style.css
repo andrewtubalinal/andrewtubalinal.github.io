@@ -1,12 +1,17 @@
 body {
     margin: 0;
-    background-size: cover;
+    background-size: 100%;
     opacity: 0;
     transition: opacity 1s ease;
     font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
     font-size: 13px;
-    background: url(assets/main-bg-compressed.png); 
-    background-size: cover;
+    background: url(assets/main-bg-compressed.png) fixed; 
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+audio#bg-music {
+    display: none;
 }
 
 .arc-gif {
@@ -101,6 +106,10 @@ header h3 {
     transition: .1s ease-in-out;
     animation: changeBorder 5s infinite;
     border: 3px solid;
+}
+
+hr {
+    animation: changeBorder 5s infinite; 
 }
 
 a {
