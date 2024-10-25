@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="../node_modules/slick-carousel/slick/slick-theme.css">
 </head>
 <body> 
+    <div class="music-container">
+        <audio id="bg-music" controls="controls" onloadeddata="audioVolume()" autoplay loop>
+            <source src="audio/bg-music.ogg"  type="audio/ogg">
+        </audio>
+    </div>
     <div class="wrapper fade-in">
         <div class="sub-wrapper fade-in">
             <header ng-controller="NavigationController" ng-click="refreshPage()"> 
@@ -20,11 +25,6 @@
             <navigation-page></navigation-page>
             <footer-page></footer-page>
         </div>
-    </div>
-    <div class="music-container">
-        <audio id= "bg-music" controls="controls" onloadeddata="audioVolume()" autoplay>
-            <source src="audio/bg-music.ogg"  type="audio/ogg">
-        </audio>
     </div>
     <script>
         function audioVolume() {
