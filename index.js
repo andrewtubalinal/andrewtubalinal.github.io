@@ -22,12 +22,6 @@ app.controller('CommonController', function($scope) {
     
 });
 
-app.controller('AudioController', function($scope) {
-    $scope.audioVolume = function (
-        
-    )
-});
-
 window.addEventListener('load', function() {
     fadeInElements();
 });
