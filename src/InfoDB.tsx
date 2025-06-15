@@ -3,7 +3,7 @@ import "./css/Background.css";
 import Navigation from "./Navigation";
 import LandingPage from "./pages/LandingContent";
 
-export default function Welcome() {
+export default function InfoDB() {
   const [activePage, setActivePage] = useState("Info DB");
 
   const renderPage = () => {

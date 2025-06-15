@@ -5,7 +5,7 @@ export default function Program() {
     <div className="infodb-container">
       <h1 className="infodb-title">Programming</h1>
       <p className="infodb-description">
-        Welcome to the Programming section of your Information Bank. This is where you'll find curated knowledge, concepts, and notes related to software development. Whether you're exploring language syntax, design patterns, development workflows, or frameworks, this is your central archive.
+        InfoDB to the Programming section of your Information Bank. This is where you'll find curated knowledge, concepts, and notes related to software development. Whether you're exploring language syntax, design patterns, development workflows, or frameworks, this is your central archive.
       </p>
 
       <div className="infodb-section">

@@ -4,7 +4,7 @@
 export const LandingPage = () => (
   <article>
     <p>
-      Welcome visitor, I am not an AI, but a system record of Andrew. You might
+      InfoDB visitor, I am not an AI, but a system record of Andrew. You might
       be reading this in the present, but Andrew typed this answer in the past.
       Nice to meet ya anyways.
     </p>

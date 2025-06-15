@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import categories from "../js/category.json";
 import "../css/Pages.css";
 
-// Import your info page components
 import Program from "./infodb/program";
 import UiUx from "./infodb/uiux";
 import Automation from "./infodb/automation";
@@ -10,7 +9,6 @@ import Ai from "./infodb/ai";
 import Multimedia from "./infodb/multimedia";
 import Remote from "./infodb/remote";
 
-// Map icon to component
 const componentMap: { [key: string]: React.FC } = {
   program: Program,
   uiux: UiUx,
@@ -23,15 +21,10 @@ const componentMap: { [key: string]: React.FC } = {
 export default function LandingContent() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeComponent, setActiveComponent] = useState<React.FC | null>(null);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const handleCategoryClick = (icon: string, name: string) => {
-    console.log("Clicked category:", name, "| Icon key:", icon); // ✅ Debug
     const SelectedComponent = componentMap[icon];
-
-    if (!SelectedComponent) {
-      console.warn(`No component found for icon key: ${icon}`); // ✅ Debug missing component
-    }
-
     setActiveCategory(name);
     setActiveComponent(() => SelectedComponent || null);
   };
@@ -54,11 +47,13 @@ export default function LandingContent() {
                       key={index}
                       className="categ-box"
                       onClick={() => handleCategoryClick(item.icon, item.name)}
+                      onMouseEnter={() => setHoveredIcon(item.icon)}
+                      onMouseLeave={() => setHoveredIcon(null)}
                       style={{ cursor: "pointer" }}
                     >
                       {item.icon && (
                         <img
-                          src={`./src/assets/${item.icon}.svg`}
+                          src={`./src/assets/${item.icon}${hoveredIcon === item.icon ? "-hover" : ""}.svg`}
                           alt={`${item.name} icon`}
                           className="categ-icon"
                         />

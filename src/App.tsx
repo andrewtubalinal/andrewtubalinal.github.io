@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/fonts.css";
 import "./css/App.css";
 
-import Welcome from "./Welcome";
+import InfoDB from "./InfoDB";
 import Program from "./pages/infodb/program"; // Add more as needed
 // import UIUX from "./pages/infodb/ui-ux";      // Example additional route
 // import Automation from "./pages/infodb/automation"; // Optional
@@ -76,7 +76,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<InfoDB />} />
         <Route path="/infodb/program" element={<Program />} />
         {/* <Route path="/infodb/ui-ux" element={<UIUX />} />
         <Route path="/infodb/automation" element={<Automation />} /> */}

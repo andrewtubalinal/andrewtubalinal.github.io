@@ -75,7 +75,8 @@ span.categ-name {
 }
 
 .categ-box:hover {
-  border-color: rgba(255, 0, 0, 0.61);
+  border-color: #00ff9f;
+  color: #00ff9f !important;
 }
 
 @keyframes rgb-glow {
