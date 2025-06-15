@@ -1,0 +1,128 @@
+/* Welcome.css */
+
+/* Wrapper fills the viewport and hides overflow so the blur never shows edges */
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  animation: wrapperFadeIn 2s ease-in-out forwards;
+  /* mix-blend-mode: hard-light; */
+  will-change: opacity, visibility;
+}
+
+@keyframes wrapperFadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 1s ease-in-out forwards;
+  will-change: opacity, visibility;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* Sits behind any future content, ignores clicks */
+.background-color-container-1,
+.background-color-container-2 {
+  /* position: absolute; */
+  inset: 0;
+  /* pointer-events: none; */
+}
+
+/* Two huge, blurred radial blobs that drift and rotate at different speeds */
+.background-color-container-1::before,
+.background-color-container-1::after,
+.background-color-container-2::before,
+.background-color-container-2::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  /* Make them bigger than the viewport so edges stay outside the screen */
+  width: 200%;
+  height: 100%;
+  top: -30%;
+  left: -30%;
+  
+  /* Dark-gray–only palette */
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 124, 27, 0.6) 0%,
+    rgba(83, 24, 0, 0.4) 55%,
+    rgba(10, 10, 10, 0) 75%
+  );
+  
+  filter: blur(500px);
+  opacity: 0.7;
+  animation: drift 26s linear infinite alternate;
+}
+
+.background-color-container-1::after {
+  background: radial-gradient(
+    circle at center,
+    rgba(110, 0, 101, 0.5) 0%,
+    rgba(63, 90, 0, 0.35) 55%,
+    rgba(104, 105, 0, 0) 75%
+  );
+  animation: drift 40s linear infinite alternate-reverse;
+}
+
+/* Second blob gets its own timing and a slightly different gray ramp */
+.background-color-container-2::after {
+  background: radial-gradient(
+    circle at center,
+    rgb(0, 77, 57) 0%,
+    rgba(107, 0, 0, 0.35) 55%,
+    rgba(104, 105, 0, 0) 75%
+  );
+  animation: drift 40s linear infinite alternate-reverse;
+}
+
+/* Keyframes: slow translation + rotation for that “passing” feel */
+@keyframes drift {
+  0%   { transform: translate(-15%, -20%) rotate(0deg); }
+  25%  { transform: translate(20%, -10%) rotate(90deg); }
+  50%  { transform: translate(10%, 25%) rotate(180deg); }
+  75%  { transform: translate(-25%, 15%) rotate(270deg); }
+  100% { transform: translate(-10%, -15%) rotate(360deg); }
+}
+
+.background-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url(./assets/hex-pattern.svg);
+  background-size: 120px 140px;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: .2;
+  animation: driftHex 40s linear infinite;
+}
+
+@keyframes driftHex {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px 140px;
+  }
+}

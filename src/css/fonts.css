@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "NitroBreak";
+  src: url("../fonts/NitroBreak-pg5B1.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LeniaMono";
+  src: url("../fonts/LeniaMonoDemoRegular-V45G0.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SD Dystopian';
+  src: url('../fonts/Sddystopiandemo-GO7xa.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zupraxu';
+  src: url('../fonts/Zupraxu-G30gm.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}

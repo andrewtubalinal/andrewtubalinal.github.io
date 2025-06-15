@@ -1,0 +1,76 @@
+.sub-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: relative;
+}
+
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0;
+  width: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 4;
+  font-family: "LeniaMono", monospace;
+}
+
+.main-container {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.content-container {
+  font-family: "LeniaMono", monospace;
+  color: #fff;
+}
+
+.nav-brand {
+  font-family: "NitroBreak", sans-serif;
+  font-size: 1.8rem;
+  color: #00ffcc;
+  text-shadow: 0 0 5px #00ffcc;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  font-family: "LeniaMono", monospace;
+  font-size: 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #00ffcc;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #00ffcc;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}

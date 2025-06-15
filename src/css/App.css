@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background: black;
+  color: white;
+}
+
+.lock-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+.lock-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.glitch {
+  font-family: 'SD Dystopian', monospace;
+  font-size: 9rem;
+  text-transform: uppercase;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 red, -2px 0 blue; }
+  20% { text-shadow: -5px 0 red, 5px 0 blue; }
+  40% { text-shadow: 2px 2px green, -2px -2px magenta; }
+  60% { text-shadow: 0 5px cyan, 2px -2px yellow; }
+  80% { text-shadow: 2px 0 red, -2px 0 blue; }
+  100% { text-shadow: -10px 0 red, 10px 0 blue; }
+}
+
+.retro-input {
+  width: 16rem;
+  padding: 1rem 9rem;
+  font-size: 1.1rem;
+  background-color: black;
+  color: lime;
+  border: 2px solid lime;
+  outline: none;
+  border-radius: 25px;
+  text-align: center;
+  font-family: 'SD Dystopian', monospace;
+  text-transform: uppercase;
+}
+
+.retro-input:focus {
+  border-color: cyan;
+  box-shadow: 0 0 5px cyan;
+}
+
+.retro-button {
+  width: 16rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  background-color: lime;
+  color: black;
+  border: 2px solid lime;
+  cursor: pointer;
+}
+
+.retro-button:hover {
+  background-color: cyan;
+  border-color: cyan;
+}
+
+.dashboard {
+  padding: 2rem;
+  background-color: black;
+  color: white;
+  min-height: 100%;
+}
+
+.access-granted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 2.5rem;
+  color: #00ff88;
+  background: black;
+}
+
+.fade-in {
+  animation: fadein 0.5s ease-out forwards;
+}
+
+.fade-out {
+  animation: fadeout 0.5s ease-in forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.accessGrantedText {
+  font-family: 'Zupraxu', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  color: #00ff88;
+  text-transform: uppercase;
+  border: 2px solid #00ff88;
+  padding: 20px;
+}

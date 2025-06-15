@@ -1,0 +1,18 @@
+{
+    "category1": [
+        {"icon": "program", "name": "Programming"},
+        {"icon": "uiux", "name": "UI/UX"},
+        {"icon": "automation", "name": "Automation"},
+        {"icon": "ai", "name": "AI"},
+        {"icon": "multimedia", "name": "Multimedia"},
+        {"icon": "remote", "name": "Remote"}
+    ],
+    "category2": [
+        {"icon": "logic", "name": "Logic", "tag": "How do I think?"},
+        {"icon": "vision", "name": "Vision", "tag": "My approach in graphics/videography"},
+        {"icon": "auditory", "name": "Auditory", "tag": "My approach in music prod"},
+        {"icon": "vocalization", "name": "Vocalization", "tag": "How I communicate with people"},
+        {"icon": "motion", "name": "Motion", "tag": "My work ethics"},
+        {"icon": "motive", "name": "Motive", "tag": "My personality"}
+    ]
+}
