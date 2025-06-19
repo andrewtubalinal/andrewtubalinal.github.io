@@ -25,3 +25,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Grotesque';
+  src: url('../fonts/terminal-grotesque_open.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -90,3 +90,9 @@ span.categ-name {
     background-position: 0% 50%;
   }
 }
+
+.infodb-description {
+    text-align: justify;
+    line-height: 2.5;
+}
+

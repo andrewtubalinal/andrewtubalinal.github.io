@@ -96,7 +96,7 @@
   animation: drift 40s linear infinite alternate-reverse;
 }
 
-/* Keyframes: slow translation + rotation for that “passing” feel */
+/* Keyframes: slow translation + rotation for that "passing" feel */
 @keyframes drift {
   0%   { transform: translate(-15%, -20%) rotate(0deg); }
   25%  { transform: translate(20%, -10%) rotate(90deg); }

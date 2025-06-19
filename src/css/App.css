@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   background: black;
   color: white;
 }
@@ -22,19 +22,31 @@ body {
 }
 
 .glitch {
-  font-family: 'SD Dystopian', monospace;
+  font-family: "SD Dystopian", monospace;
   font-size: 9rem;
   text-transform: uppercase;
   animation: glitch 1s infinite;
 }
 
 @keyframes glitch {
-  0% { text-shadow: 2px 0 red, -2px 0 blue; }
-  20% { text-shadow: -5px 0 red, 5px 0 blue; }
-  40% { text-shadow: 2px 2px green, -2px -2px magenta; }
-  60% { text-shadow: 0 5px cyan, 2px -2px yellow; }
-  80% { text-shadow: 2px 0 red, -2px 0 blue; }
-  100% { text-shadow: -10px 0 red, 10px 0 blue; }
+  0% {
+    text-shadow: 2px 0 red, -2px 0 blue;
+  }
+  20% {
+    text-shadow: -5px 0 red, 5px 0 blue;
+  }
+  40% {
+    text-shadow: 2px 2px green, -2px -2px magenta;
+  }
+  60% {
+    text-shadow: 0 5px cyan, 2px -2px yellow;
+  }
+  80% {
+    text-shadow: 2px 0 red, -2px 0 blue;
+  }
+  100% {
+    text-shadow: -10px 0 red, 10px 0 blue;
+  }
 }
 
 .retro-input {
@@ -47,7 +59,7 @@ body {
   outline: none;
   border-radius: 25px;
   text-align: center;
-  font-family: 'SD Dystopian', monospace;
+  font-family: "SD Dystopian", monospace;
   text-transform: uppercase;
 }
 
@@ -119,11 +131,19 @@ body {
 }
 
 .accessGrantedText {
-  font-family: 'Zupraxu', sans-serif;
+  font-family: "Zupraxu", sans-serif;
   font-size: 3rem;
   letter-spacing: 2px;
   color: #00ff88;
   text-transform: uppercase;
   border: 2px solid #00ff88;
   padding: 20px;
+}
+
+.infodb-container {
+  display: flex;
+  overflow: auto !important;
+  height: 60vh;
+  scrollbar-width: none;
+  letter-spacing: 1px;
 }

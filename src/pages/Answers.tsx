@@ -16,7 +16,7 @@ export const LandingPage = () => (
     <p>
       As simple as this user interface is, this is still a React application,
       coded in TypeScript. The design might be too basic for you, but trust
-      me—the speed at which information gets back to you is much better than
+      me the speed at which information gets back to you is much better than
       fancy graphics.
     </p>
     <p>

@@ -8,6 +8,7 @@ import InfoDB from "./InfoDB";
 import Program from "./pages/infodb/program"; // Add more as needed
 // import UIUX from "./pages/infodb/ui-ux";      // Example additional route
 // import Automation from "./pages/infodb/automation"; // Optional
+import Logic from "./pages/infodb/logic";
 
 // Read the password from .env
 const PASSWORD = import.meta.env.VITE_APP_PASSWORD ?? "";
@@ -78,6 +79,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<InfoDB />} />
         <Route path="/infodb/program" element={<Program />} />
+        <Route path="/infodb/logic" element={<Logic />} />
         {/* <Route path="/infodb/ui-ux" element={<UIUX />} />
         <Route path="/infodb/automation" element={<Automation />} /> */}
         {/* Add more routes as needed */}
