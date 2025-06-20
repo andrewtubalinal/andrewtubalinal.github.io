@@ -1,8 +1,12 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./css/fonts.css";
 import "./css/App.css";
+import "./css/Mobile.css";
+import mobileMessages from "./js/mobileMessages.json";
+import { useMemo } from "react";
 
 import InfoDB from "./InfoDB";
 import Program from "./pages/infodb/program"; // Add more as needed
@@ -14,13 +18,40 @@ import Logic from "./pages/infodb/logic";
 const PASSWORD = import.meta.env.VITE_APP_PASSWORD ?? "";
 
 export default function App() {
+  const isMobile = window.innerWidth < 768;
+  const mobileMessage = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * mobileMessages.length);
+    return mobileMessages[randomIndex];
+  }, []);
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#000",
+          color: "red",
+          textAlign: "center",
+          fontSize: "1.2rem",
+          padding: "1rem",
+        }}
+      >
+        {mobileMessage}
+      </div>
+    );
+  }
+
   const [unlocked, setUnlocked] = useState(false);
   const [input, setInput] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    document.title = unlocked ? "Information Database" : "Visitor Authentication";
+    document.title = unlocked
+      ? "Information Database"
+      : "Visitor Authentication";
   }, [unlocked]);
 
   useEffect(() => {
@@ -50,7 +81,11 @@ export default function App() {
 
   if (accessGranted && !unlocked) {
     return (
-      <div className={`lock-screen access-granted ${fadeOut ? "fade-out" : "fade-in"}`}>
+      <div
+        className={`lock-screen access-granted ${
+          fadeOut ? "fade-out" : "fade-in"
+        }`}
+      >
         <h1 className="accessGrantedText">ACCESS GRANTED</h1>
       </div>
     );

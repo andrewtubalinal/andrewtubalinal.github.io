@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./css/Background.css";
 import Navigation from "./Navigation";
 import LandingPage from "./pages/LandingContent";
