@@ -24,24 +24,26 @@ export default function App() {
     return mobileMessages[randomIndex];
   }, []);
   if (isMobile) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#000",
-          color: "red",
-          textAlign: "center",
-          fontSize: "1.2rem",
-          padding: "1rem",
-        }}
-      >
-        {mobileMessage}
-      </div>
-    );
-  }
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#000",
+        color: "red",
+        textAlign: "center",
+        fontSize: "1.2rem",
+        padding: "1rem",
+        fontFamily: "monospace"
+      }}
+    >
+      {mobileMessage}
+    </div>
+  );
+}
+
 
   const [unlocked, setUnlocked] = useState(false);
   const [input, setInput] = useState("");
