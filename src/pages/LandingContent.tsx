@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import categories from "../js/category.json";
@@ -32,6 +33,7 @@ const componentMap: { [key: string]: React.FC } = {
 };
 
 export default function LandingContent() {
+  // @ts-ignore
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeComponent, setActiveComponent] = useState<React.FC | null>(null);
   const [activeFormal, setActiveFormal] = useState<string | null>(null);
