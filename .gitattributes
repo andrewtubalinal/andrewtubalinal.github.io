@@ -1,4 +1,4 @@
-*.js   mime=application/javascript
-*.jsx  mime=application/javascript
-*.ts   mime=application/javascript
-*.tsx  mime=application/javascript
+*.ts  linguist-language=JavaScript
+*.tsx linguist-language=JavaScript
+*.js  mime=application/javascript
+*.jsx mime=application/javascript
