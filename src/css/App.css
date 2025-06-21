@@ -146,4 +146,11 @@ body {
   height: 60vh;
   scrollbar-width: none;
   letter-spacing: 1px;
+  padding: 0 20px 20px;
+  user-select: none;
+}
+
+.overrideFull {
+    height: 80vh !important;
+    animation: fadeInLanding 0.6s ease-in-out;
 }

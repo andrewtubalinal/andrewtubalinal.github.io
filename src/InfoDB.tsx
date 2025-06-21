@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./css/Background.css";
 import Navigation from "./Navigation";
 import LandingPage from "./pages/LandingContent";
+import Philosophy from "./Philosophy";
 
 export default function InfoDB() {
   const [activePage, setActivePage] = useState("Info DB");
@@ -11,9 +12,9 @@ export default function InfoDB() {
       case "Info DB":
         return <LandingPage />;
       case "Documentation":
-        return <div className="page-content"> Documentation</div>;
+        return <div className="page-content"> </div>;
       case "Philosophy":
-        return <div className="page-content">Philosophy</div>;
+        return <Philosophy />
       default:
         return <LandingPage />;
     }
