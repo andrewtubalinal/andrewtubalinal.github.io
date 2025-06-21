@@ -70,7 +70,7 @@ export default function LandingContent() {
                     >
                       {item.icon && (
                         <img
-                          src={`./src/assets/${item.icon}${hoveredIcon === item.icon ? "-hover" : ""}.svg`}
+                          src={`./assets/${item.icon}${hoveredIcon === item.icon ? "-hover" : ""}.svg`}
                           alt={`${item.name} icon`}
                           className="categ-icon"
                         />
