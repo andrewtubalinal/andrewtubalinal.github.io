@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./css/fonts.css";
 import "./css/App.css";
 import "./css/Mobile.css";
+
 import mobileMessages from "./js/mobileMessages.json";
-import { useMemo } from "react";
+import errorMessages from "./js/errorPasswordMsg.json";
 
 import InfoDB from "./InfoDB";
-import Program from "./pages/infodb/program"; // Add more as needed
-// import UIUX from "./pages/infodb/ui-ux";      // Example additional route
-// import Automation from "./pages/infodb/automation"; // Optional
+import Program from "./pages/infodb/program";
 import Logic from "./pages/infodb/logic";
+// import UIUX from "./pages/infodb/ui-ux";
+// import Automation from "./pages/infodb/automation";
 
-// Read the password from .env
 const PASSWORD = import.meta.env.VITE_APP_PASSWORD ?? "";
 
 export default function App() {
@@ -23,6 +23,13 @@ export default function App() {
     const randomIndex = Math.floor(Math.random() * mobileMessages.length);
     return mobileMessages[randomIndex];
   }, []);
+  
+  const getRandomErrorMessage = () => {
+    const messages = errorMessages.message;
+    const index = Math.floor(Math.random() * messages.length);
+    return messages[index];
+  };
+
   if (isMobile) {
     return (
       <div
@@ -47,6 +54,7 @@ export default function App() {
   const [input, setInput] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     document.title = unlocked
@@ -57,25 +65,23 @@ export default function App() {
   useEffect(() => {
     if (input === PASSWORD) {
       setAccessGranted(true);
+      setError(""); // Clear error if correct
       setTimeout(() => setFadeOut(true), 2800);
       setTimeout(() => setUnlocked(true), 3100);
     }
   }, [input]);
 
-  const tryCloseTab = () => {
-    window.open("", "_self");
-    window.close();
-    setTimeout(() => {
-      if (!window.closed) window.location.href = "about:blank";
-    }, 100);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+    setError(""); // Clear any previous error
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInput(value);
-    if (value.length >= PASSWORD.length && value !== PASSWORD) {
-      alert("Incorrect password. This tab will close now.");
-      tryCloseTab();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (input !== PASSWORD) {
+        setError(getRandomErrorMessage());
+        setInput(""); // Optionally clear the input
+      }
     }
   };
 
@@ -100,10 +106,12 @@ export default function App() {
             type="password"
             value={input}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder="Authentication"
             className="retro-input"
             autoFocus
           />
+          {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
         </div>
       </div>
     );
@@ -117,7 +125,6 @@ export default function App() {
         <Route path="/infodb/logic" element={<Logic />} />
         {/* <Route path="/infodb/ui-ux" element={<UIUX />} />
         <Route path="/infodb/automation" element={<Automation />} /> */}
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );
