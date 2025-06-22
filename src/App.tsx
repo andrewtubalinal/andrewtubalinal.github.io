@@ -25,11 +25,13 @@ export default function App() {
   }, []);
   
   const getRandomErrorMessage = () => {
-    const messages = errorMessages.message;
-    const index = Math.floor(Math.random() * messages.length);
-    return messages[index];
-  };
-
+  const messages = errorMessages.messages;
+  const index = Math.floor(Math.random() * messages.length);
+  const selected = messages[index];
+  return `${selected.character}: ${selected.message}`;
+};
+  
+  
   if (isMobile) {
     return (
       <div
