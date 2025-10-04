@@ -151,6 +151,29 @@ body {
 }
 
 .overrideFull {
-    height: 80vh !important;
-    animation: fadeInLanding 0.6s ease-in-out;
+  height: 80vh !important;
+  animation: fadeInLanding 0.6s ease-in-out;
+}
+
+.back-button {
+  padding: 10px 14px;
+  margin-top: 20px;
+  font-size: 14px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "LeniaMono", monospace;
+}
+
+.back-button:hover {
+  border-color: #00ff9f;
+  color: #00ff9f;
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: end;
+  padding: 0 20px;
 }

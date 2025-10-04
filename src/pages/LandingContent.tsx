@@ -45,7 +45,14 @@ export default function LandingContent() {
     setActiveFormal(formal);
     setActiveComponent(() => SelectedComponent || null);
   };
-  
+
+  // NEW: Reset all state to "go back"
+  const handleBackClick = () => {
+    setActiveCategory(null);
+    setActiveComponent(null);
+    setActiveFormal(null);
+  };
+
   return (
     <div className="landing-wrapper">
       <h1 className="landing-title">
@@ -53,7 +60,14 @@ export default function LandingContent() {
       </h1>
       <div className="landing-body">
         {activeComponent ? (
-          <>{React.createElement(activeComponent)}</>
+          <div>
+            {React.createElement(activeComponent)}
+            <div className="back-button-container">
+              <button onClick={handleBackClick} className="back-button">
+                I'm Done Reading
+              </button>
+            </div>
+          </div>
         ) : (
           Object.entries(categories).map(([categoryName, items]) => (
             <div className="landing-categ-rows" key={categoryName}>
@@ -63,14 +77,18 @@ export default function LandingContent() {
                     <div
                       key={index}
                       className="categ-box"
-                      onClick={() => handleCategoryClick(item.icon, item.name, item.formal)}
+                      onClick={() =>
+                        handleCategoryClick(item.icon, item.name, item.formal)
+                      }
                       onMouseEnter={() => setHoveredIcon(item.icon)}
                       onMouseLeave={() => setHoveredIcon(null)}
                       style={{ cursor: "pointer" }}
                     >
                       {item.icon && (
                         <img
-                          src={`./assets/${item.icon}${hoveredIcon === item.icon ? "-hover" : ""}.svg`}
+                          src={`./assets/${item.icon}${
+                            hoveredIcon === item.icon ? "-hover" : ""
+                          }.svg`}
                           alt={`${item.name} icon`}
                           className="categ-icon"
                         />
@@ -78,9 +96,7 @@ export default function LandingContent() {
                       <span className="categ-name">{item.name}</span>
                     </div>
                   ) : (
-                    <div key={index} className="categ-box empty">
-                       
-                    </div>
+                    <div key={index} className="categ-box empty"></div>
                   )
                 )}
               </div>

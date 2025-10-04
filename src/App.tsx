@@ -51,7 +51,7 @@ export default function App() {
       </div>
     );
   }
-
+  
   const [unlocked, setUnlocked] = useState(false);
   const [input, setInput] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
