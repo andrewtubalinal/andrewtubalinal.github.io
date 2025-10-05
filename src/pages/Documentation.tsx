@@ -266,7 +266,7 @@ export default function Documentation() {
             >
               {selectedDoc.title}
             </h2>
-
+            
             <p
               style={{
                 color: "#ccc",
@@ -291,7 +291,7 @@ export default function Documentation() {
               {selectedDoc.content}
             </div>
 
-            <div
+            {/* <div
               style={{
                 marginTop: "2rem",
                 paddingTop: "1rem",
@@ -301,7 +301,7 @@ export default function Documentation() {
               }}
             >
               File: {selectedDoc.filename}
-            </div>
+            </div> */}
           </div>
         </div>
       )}
