@@ -1,30 +1,48 @@
 import fs from "fs";
 import path from "path";
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    try {
-      const filePath = path.join(process.cwd(), "data", "docs.json"); // ✅ Correct path
-      const fileData = fs.readFileSync(filePath, "utf-8");
+export default async function handler(req) {
+  const filePath = path.join(process.cwd(), "data", "docs.json");
+
+  try {
+    if (req.method === "POST") {
+      const body = await req.json(); // ✅ Parse body from Request object
+      const fileData = fs.existsSync(filePath)
+        ? fs.readFileSync(filePath, "utf-8")
+        : "[]";
       const docs = JSON.parse(fileData);
 
-      const newDoc = req.body;
-      docs.push(newDoc);
+      docs.push(body);
 
       fs.writeFileSync(filePath, JSON.stringify(docs, null, 2));
-      res.status(200).json({ message: "Success" });
-    } catch (error) {
-      console.error("Error writing to docs.json:", error);
-      res.status(500).json({ message: "Failed to write to docs.json" });
+
+      return new Response(JSON.stringify({ message: "Success" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
     }
-  } else if (req.method === "GET") {
-    try {
-      const filePath = path.join(process.cwd(), "data", "docs.json");
-      const fileData = fs.readFileSync(filePath, "utf-8");
+
+    if (req.method === "GET") {
+      const fileData = fs.existsSync(filePath)
+        ? fs.readFileSync(filePath, "utf-8")
+        : "[]";
       const docs = JSON.parse(fileData);
-      res.status(200).json(docs);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to read docs.json" });
+
+      return new Response(JSON.stringify(docs), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
     }
+
+    return new Response(JSON.stringify({ message: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error accessing docs.json:", error);
+    return new Response(JSON.stringify({ message: "Failed to document." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
