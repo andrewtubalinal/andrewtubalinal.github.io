@@ -1,7 +1,8 @@
 import fetch from "node-fetch";
+import yaml from "js-yaml";
 
 export default async function handler(req, res) {
-  // Handle GET requests - list all docs
+  // Handle GET requests - list all docs with content
   if (req.method === "GET") {
     try {
       const token = process.env.ANDREW_TOKEN;
@@ -33,15 +34,43 @@ export default async function handler(req, res) {
 
       const files = await response.json();
 
-      // Filter for YAML files and extract basic info
-      const docs = files
-        .filter(file => file.name.endsWith('.yml') || file.name.endsWith('.yaml'))
-        .map(file => ({
-          id: file.name,
-          title: file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' '),
-          filename: file.name,
-          url: file.download_url,
-        }));
+      // Fetch content for each YAML file
+      const docs = await Promise.all(
+        files
+          .filter(file => file.name.endsWith('.yml') || file.name.endsWith('.yaml'))
+          .map(async (file) => {
+            try {
+              // Fetch the actual file content
+              const fileResponse = await fetch(file.download_url);
+              const fileContent = await fileResponse.text();
+              
+              // Parse YAML content
+              const parsed = yaml.load(fileContent);
+              
+              return {
+                id: file.name,
+                filename: file.name,
+                title: parsed.title || file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' '),
+                date: parsed.date || file.name.split('-')[0],
+                content: parsed.content || parsed.message || Object.values(parsed).slice(2).join('\n') || 'No content',
+                rawContent: fileContent
+              };
+            } catch (error) {
+              console.error(`Error parsing file ${file.name}:`, error);
+              return {
+                id: file.name,
+                filename: file.name,
+                title: file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' '),
+                date: 'Unknown date',
+                content: 'Error loading content',
+                rawContent: ''
+              };
+            }
+          })
+      );
+
+      // Sort by date (newest first)
+      docs.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       return res.status(200).json({ success: true, docs });
     } catch (error) {
@@ -96,7 +125,7 @@ ${content}
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("GitHub API Error:", data);
         return res.status(500).json({

@@ -4,13 +4,17 @@ type Doc = {
   id: string;
   title: string;
   filename: string;
-  url: string;
+  date: string;
+  content: string;
+  rawContent: string;
 };
 
 export default function Documentation() {
   const [docs, setDocs] = useState<Doc[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedDoc, setSelectedDoc] = useState<Doc | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDocs = async () => {
@@ -33,6 +37,30 @@ export default function Documentation() {
     };
     fetchDocs();
   }, []);
+
+  const openModal = (doc: Doc) => {
+    setSelectedDoc(doc);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDoc(null);
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return dateString;
+    }
+  };
 
   if (loading) {
     return (
@@ -111,35 +139,138 @@ export default function Documentation() {
                 padding: "1.5rem",
                 marginBottom: "1rem",
                 backgroundColor: "#111",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+              onClick={() => openModal(doc)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#1a1a1a";
+                e.currentTarget.style.borderColor = "#0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#111";
+                e.currentTarget.style.borderColor = "lime";
               }}
             >
               <h2 style={{ margin: "0 0 0.5rem 0", color: "lime" }}>
                 {doc.title}
               </h2>
               <p style={{ 
-                margin: "0 0 1rem 0", 
+                margin: "0 0 0.5rem 0", 
                 color: "#ccc",
                 fontSize: "0.9rem" 
               }}>
-                File: {doc.filename}
+                Created: {formatDate(doc.date)}
               </p>
-              <a
-                href={doc.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: "lime",
-                  textDecoration: "none",
-                  border: "1px solid lime",
-                  padding: "0.25rem 0.5rem",
-                  borderRadius: "4px",
-                  display: "inline-block",
-                }}
-              >
-                View Raw Content
-              </a>
+              <p style={{ 
+                margin: "0",
+                color: "#aaa",
+                fontSize: "0.9rem",
+                fontStyle: "italic"
+              }}>
+                Click to read full content...
+              </p>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal Popup */}
+      {isModalOpen && selectedDoc && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+            padding: "2rem",
+          }}
+          onClick={closeModal}
+        >
+          <div
+            style={{
+              backgroundColor: "#111",
+              border: "2px solid lime",
+              borderRadius: "12px",
+              padding: "2rem",
+              maxWidth: "600px",
+              width: "100%",
+              maxHeight: "80vh",
+              overflow: "auto",
+              position: "relative",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              style={{
+                position: "absolute",
+                top: "1rem",
+                right: "1rem",
+                background: "none",
+                border: "1px solid lime",
+                color: "lime",
+                borderRadius: "50%",
+                width: "2rem",
+                height: "2rem",
+                cursor: "pointer",
+                fontSize: "1rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ×
+            </button>
+
+            {/* Modal Content */}
+            <h2 style={{ 
+              color: "lime", 
+              margin: "0 0 1rem 0",
+              paddingRight: "3rem"
+            }}>
+              {selectedDoc.title}
+            </h2>
+            
+            <p style={{ 
+              color: "#ccc", 
+              margin: "0 0 1.5rem 0",
+              fontSize: "0.9rem",
+              borderBottom: "1px solid #333",
+              paddingBottom: "1rem"
+            }}>
+              Created: {formatDate(selectedDoc.date)}
+            </p>
+
+            <div
+              style={{
+                color: "#fff",
+                lineHeight: "1.6",
+                whiteSpace: "pre-wrap",
+                fontFamily: "monospace",
+                fontSize: "0.95rem",
+              }}
+            >
+              {selectedDoc.content}
+            </div>
+
+            <div style={{ 
+              marginTop: "2rem", 
+              paddingTop: "1rem",
+              borderTop: "1px solid #333",
+              fontSize: "0.8rem",
+              color: "#666"
+            }}>
+              File: {selectedDoc.filename}
+            </div>
+          </div>
         </div>
       )}
     </div>
