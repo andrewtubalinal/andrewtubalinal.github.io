@@ -5,7 +5,7 @@ export default function CreateDocumentation() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(""); // replaced unused popup
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -19,18 +19,18 @@ export default function CreateDocumentation() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, content: message }),
     });
-
+    
     // ✅ Read body *only once*
     const text = await res.text();
     let data: any;
-
+    
     try {
       data = JSON.parse(text);
     } catch {
       // If backend returned HTML/plain error
       throw new Error(text);
     }
-
+    
     if (res.ok) {
       setStatus("✅ Documented successfully!");
       setTitle("");

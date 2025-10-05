@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   const token = process.env.ANDREW_TOKEN;
   const repoOwner = "andrewtubalinal";
   const repoName = "andrewtubalinal.github.io";
+  const targetBranch = "serve"; // 👈 push to this branch
 
   if (!token) {
     return res.status(500).json({ message: "Missing GitHub token on server" });
@@ -38,13 +39,14 @@ ${content}
     const response = await fetch(githubUrl, {
       method: "PUT",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        "Accept": "application/vnd.github+json",
+        Accept: "application/vnd.github+json",
       },
       body: JSON.stringify({
         message: `📜 Added doc: ${title}`,
         content: Buffer.from(newFileContent).toString("base64"),
+        branch: targetBranch, // 👈 this ensures it goes to serve
       }),
     });
 
