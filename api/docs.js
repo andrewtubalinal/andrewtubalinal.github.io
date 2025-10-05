@@ -1,18 +1,22 @@
-// /api/docs.js
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
+  console.log("✅ Function triggered");
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
   const { title, content } = req.body;
+  console.log("📝 Received:", { title, content });
 
   if (!title || !content) {
     return res.status(400).json({ message: "Missing title or content" });
   }
 
   const GITHUB_TOKEN = process.env.ANDREW_TOKEN;
+  console.log("🔑 Token exists:", !!GITHUB_TOKEN);
+
   const REPO = "andrewtubalinal/andrewtubalinal.github.io";
   const FOLDER = "_docs";
   const FILE_NAME = `${new Date().toISOString().split("T")[0]}-${title
@@ -23,8 +27,8 @@ export default async function handler(req, res) {
   const fileContent = `title: "${title}"\ncontent: "${content.replace(/\n/g, "\\n")}"`;
 
   try {
-    // Encode content to base64 for GitHub API
     const base64Content = Buffer.from(fileContent).toString("base64");
+    console.log("📦 Encoded content length:", base64Content.length);
 
     const githubRes = await fetch(
       `https://api.github.com/repos/${REPO}/contents/${filePath}`,
@@ -41,17 +45,19 @@ export default async function handler(req, res) {
         }),
       }
     );
-
+    
     const result = await githubRes.json();
+    console.log("📡 GitHub response:", result);
 
     if (githubRes.ok) {
       return res.status(200).json({ success: true, result });
     } else {
-      console.error("GitHub API error:", result);
-      return res.status(500).json({ success: false, message: result.message });
+      return res
+        .status(500)
+        .json({ success: false, message: result.message || "GitHub error" });
     }
   } catch (err) {
-    console.error("Error pushing to GitHub:", err);
+    console.error("💥 Error pushing to GitHub:", err);
     return res.status(500).json({ success: false, message: err.message });
   }
 }
