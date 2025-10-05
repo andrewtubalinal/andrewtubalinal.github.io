@@ -1,26 +1,36 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 
 export default function CreateDocumentation() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [popup, setPopup] = useState("");
+  const [status, setStatus] = useState(""); // replaced unused popup
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/docs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, content: message }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      setPopup("Alright, documented it.");
-      setTitle("");
-      setMessage("");
-      setTimeout(() => setPopup(""), 1500);
-    } else {
-      setPopup("Failed to document.");
-      setTimeout(() => setPopup(""), 1500);
+
+    if (!title.trim() || !message.trim()) return;
+
+    setStatus("Saving to GitHub...");
+
+    try {
+      const res = await fetch("/api/docs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content: message }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("✅ Documented successfully!");
+        setTitle("");
+        setMessage("");
+      } else {
+        setStatus(`❌ Failed: ${data.message || "Unknown error"}`);
+      }
+    } catch (err: any) {
+      setStatus("❌ Error: " + err.message);
     }
   };
 
@@ -49,7 +59,13 @@ export default function CreateDocumentation() {
           onChange={(e) => setTitle(e.target.value)}
           className="retro-input"
           required
-          style={{ marginBottom: "0.5rem" }}
+          style={{
+            marginBottom: "0.5rem",
+            border: "1px solid lime",
+            background: "black",
+            color: "lime",
+            padding: "0.5rem",
+          }}
         />
         <textarea
           placeholder="Message"
@@ -58,7 +74,14 @@ export default function CreateDocumentation() {
           className="retro-input"
           required
           rows={4}
-          style={{ marginBottom: "0.5rem", resize: "none" }}
+          style={{
+            marginBottom: "0.5rem",
+            resize: "none",
+            border: "1px solid lime",
+            background: "black",
+            color: "lime",
+            padding: "0.5rem",
+          }}
         />
         <button
           type="submit"
@@ -75,7 +98,7 @@ export default function CreateDocumentation() {
         </button>
       </form>
 
-      {popup && (
+      {status && (
         <div
           style={{
             marginTop: "1rem",
@@ -85,7 +108,7 @@ export default function CreateDocumentation() {
             borderRadius: "5px",
           }}
         >
-          {popup}
+          {status}
         </div>
       )}
     </div>
