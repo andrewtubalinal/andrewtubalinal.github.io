@@ -22,8 +22,8 @@ export default function Documentation() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#000",
-        color: "#0f0",
+        backgroundColor: "transparent",
+        color: "#FFF",
         padding: "2rem",
         fontFamily: "monospace",
       }}
