@@ -1,51 +1,57 @@
+// /api/docs.js
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST")
-    return res.status(405).json({ success: false, message: "Method not allowed" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
 
   const { title, content } = req.body;
 
-  if (!title || !content)
-    return res.status(400).json({ success: false, message: "Missing title or content" });
+  if (!title || !content) {
+    return res.status(400).json({ message: "Missing title or content" });
+  }
+
+  const GITHUB_TOKEN = process.env.ANDREW_TOKEN;
+  const REPO = "andrewtubalinal/andrewtubalinal.github.io";
+  const FOLDER = "_docs";
+  const FILE_NAME = `${new Date().toISOString().split("T")[0]}-${title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")}.yml`;
+
+  const filePath = `${FOLDER}/${FILE_NAME}`;
+  const fileContent = `title: "${title}"\ncontent: "${content.replace(/\n/g, "\\n")}"`;
 
   try {
-    const token = process.env.ANDREW_TOKEN;
-    const repo = "andrewtubalinal/andrewtubalinal.github.io";
-    const filePath = `_docs/${Date.now()}-${title.replace(/\s+/g, "-").toLowerCase()}.yml`;
+    // Encode content to base64 for GitHub API
+    const base64Content = Buffer.from(fileContent).toString("base64");
 
-    const yamlContent = `---
-title: "${title}"
-date: "${new Date().toISOString()}"
----
+    const githubRes = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${filePath}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          "Content-Type": "application/json",
+          Accept: "application/vnd.github+json",
+        },
+        body: JSON.stringify({
+          message: `Add documentation: ${title}`,
+          content: base64Content,
+        }),
+      }
+    );
 
-${content}
-`;
+    const result = await githubRes.json();
 
-    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `token ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: `Add documentation: ${title}`,
-        content: Buffer.from(yamlContent).toString("base64"),
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("GitHub API Error:", data);
-      return res
-        .status(500)
-        .json({ success: false, message: data.message || "GitHub API failed" });
+    if (githubRes.ok) {
+      return res.status(200).json({ success: true, result });
+    } else {
+      console.error("GitHub API error:", result);
+      return res.status(500).json({ success: false, message: result.message });
     }
-
-    return res.status(200).json({ success: true, message: "Documentation created", data });
   } catch (err) {
-    console.error("Server Error:", err);
+    console.error("Error pushing to GitHub:", err);
     return res.status(500).json({ success: false, message: err.message });
   }
 }
