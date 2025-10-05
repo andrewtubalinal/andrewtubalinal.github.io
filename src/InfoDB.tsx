@@ -3,6 +3,7 @@ import "./css/Background.css";
 import Navigation from "./Navigation";
 import LandingPage from "./pages/LandingContent";
 import Philosophy from "./Philosophy";
+import Documentation from "./pages/Documentation";
 
 export default function InfoDB() {
   const [activePage, setActivePage] = useState("Info DB");
@@ -12,14 +13,15 @@ export default function InfoDB() {
       case "Info DB":
         return <LandingPage />;
       case "Documentation":
-        return <div className="page-content"> </div>;
+        return <Documentation />;
+
       case "Philosophy":
-        return <Philosophy />
+        return <Philosophy />;
       default:
         return <LandingPage />;
     }
   };
-  
+
   return (
     <div className="wrapper">
       <div className="background-color-container-1">
