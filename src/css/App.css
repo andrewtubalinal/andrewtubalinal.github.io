@@ -65,7 +65,7 @@ body {
 
 .retro-input:focus {
   border-color: cyan;
-  box-shadow: 0 0 5px cyan;
+  /* box-shadow: 0 0 5px cyan; */
 }
 
 .retro-button {
