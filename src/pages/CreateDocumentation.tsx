@@ -20,7 +20,14 @@ export default function CreateDocumentation() {
         body: JSON.stringify({ title, content: message }),
       });
 
-      const data = await res.json();
+      // ✅ Safely handle non-JSON errors
+      let data: any;
+      try {
+        data = await res.json();
+      } catch {
+        const text = await res.text();
+        throw new Error(text);
+      }
 
       if (res.ok) {
         setStatus("✅ Documented successfully!");
@@ -30,7 +37,7 @@ export default function CreateDocumentation() {
         setStatus(`❌ Failed: ${data.message || "Unknown error"}`);
       }
     } catch (err: any) {
-      setStatus("❌ Error: " + err.message);
+      setStatus(`❌ Error: ${err.message}`);
     }
   };
 
