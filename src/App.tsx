@@ -12,8 +12,8 @@ import errorMessages from "./js/errorPasswordMsg.json";
 import InfoDB from "./InfoDB";
 import Program from "./pages/infodb/program";
 import Logic from "./pages/infodb/logic";
-// import UIUX from "./pages/infodb/ui-ux";
-// import Automation from "./pages/infodb/automation";
+import CreateDocumentation from "./pages/CreateDocumentation";
+import Documentation from "./pages/Documentation";
 
 export default function App() {
   const isMobile = window.innerWidth < 768;
@@ -84,11 +84,15 @@ export default function App() {
         const data = await res.json();
 
         if (data.success) {
-          setAccessGranted(true);
           setError("");
           setIsWrong(false);
+          setAccessGranted(true);
+
           setTimeout(() => setFadeOut(true), 2800);
-          setTimeout(() => setUnlocked(true), 3100);
+          setTimeout(() => {
+            setUnlocked(true);
+            window.location.href = data.route; // dynamically route
+          }, 3100);
         } else {
           setError(getRandomErrorMessage());
           setInput("");
@@ -138,15 +142,15 @@ export default function App() {
       </div>
     );
   }
-  
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<InfoDB />} />
         <Route path="/infodb/program" element={<Program />} />
         <Route path="/infodb/logic" element={<Logic />} />
-        {/* <Route path="/infodb/ui-ux" element={<UIUX />} />
-        <Route path="/infodb/automation" element={<Automation />} /> */}
+          <Route path="/create-documentation" element={<CreateDocumentation />} />
+  <Route path="/documentation" element={<Documentation />} />
       </Routes>
     </Router>
   );
