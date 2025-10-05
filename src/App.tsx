@@ -15,23 +15,20 @@ import Logic from "./pages/infodb/logic";
 // import UIUX from "./pages/infodb/ui-ux";
 // import Automation from "./pages/infodb/automation";
 
-const PASSWORD = import.meta.env.VITE_APP_PASSWORD ?? "";
-
 export default function App() {
   const isMobile = window.innerWidth < 768;
   const mobileMessage = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * mobileMessages.length);
     return mobileMessages[randomIndex];
   }, []);
-  
+
   const getRandomErrorMessage = () => {
-  const messages = errorMessages.messages;
-  const index = Math.floor(Math.random() * messages.length);
-  const selected = messages[index];
-  return `${selected.character}: ${selected.message}`;
-};
-  
-  
+    const messages = errorMessages.messages;
+    const index = Math.floor(Math.random() * messages.length);
+    const selected = messages[index];
+    return `${selected.character}: ${selected.message}`;
+  };
+
   if (isMobile) {
     return (
       <div
@@ -51,12 +48,13 @@ export default function App() {
       </div>
     );
   }
-  
+
   const [unlocked, setUnlocked] = useState(false);
   const [input, setInput] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     document.title = unlocked
@@ -64,25 +62,38 @@ export default function App() {
       : "Visitor Authentication";
   }, [unlocked]);
 
-  useEffect(() => {
-    if (input === PASSWORD) {
-      setAccessGranted(true);
-      setError(""); // Clear error if correct
-      setTimeout(() => setFadeOut(true), 2800);
-      setTimeout(() => setUnlocked(true), 3100);
-    }
-  }, [input]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     setError(""); // Clear any previous error
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (input !== PASSWORD) {
-        setError(getRandomErrorMessage());
-        setInput(""); // Optionally clear the input
+      if (!input.trim()) return;
+
+      setLoading(true);
+      try {
+        const res = await fetch("/api/verify-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: input }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          setAccessGranted(true);
+          setError("");
+          setTimeout(() => setFadeOut(true), 2800);
+          setTimeout(() => setUnlocked(true), 3100);
+        } else {
+          setError(getRandomErrorMessage());
+          setInput("");
+        }
+      } catch {
+        setError("Server unreachable. Try again later.");
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -112,8 +123,10 @@ export default function App() {
             placeholder="Authentication"
             className="retro-input"
             autoFocus
+            disabled={loading}
           />
           {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
+          {loading && <p style={{ color: "#0f0", marginTop: "0.5rem" }}>Verifying...</p>}
         </div>
       </div>
     );
