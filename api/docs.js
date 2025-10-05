@@ -44,15 +44,62 @@ export default async function handler(req, res) {
               const fileResponse = await fetch(file.download_url);
               const fileContent = await fileResponse.text();
               
-              // Parse YAML content
-              const parsed = yaml.load(fileContent);
-              
+              // Parse YAML content - handle frontmatter format
+              let title = file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' ');
+              let date = file.name.split('-')[0];
+              let content = '';
+
+              // Try to parse as YAML with frontmatter
+              if (fileContent.startsWith('---')) {
+                // Split frontmatter and content
+                const parts = fileContent.split('---').filter(part => part.trim() !== '');
+                
+                if (parts.length >= 1) {
+                  // Parse frontmatter (first part)
+                  const frontmatter = yaml.load(parts[0]);
+                  title = frontmatter.title || title;
+                  date = frontmatter.date || date;
+                  
+                  // Get content (second part if exists)
+                  if (parts.length >= 2) {
+                    content = parts[1].trim();
+                  }
+                }
+              } else {
+                // Try direct YAML parsing as fallback
+                try {
+                  const parsed = yaml.load(fileContent);
+                  if (typeof parsed === 'object') {
+                    title = parsed.title || title;
+                    date = parsed.date || date;
+                    // Extract all non-frontmatter fields as content
+                    const contentFields = Object.entries(parsed)
+                      .filter(([key]) => !['title', 'date'].includes(key))
+                      .map(([key, value]) => `${value}`)
+                      .join('\n\n');
+                    content = contentFields || fileContent;
+                  } else {
+                    content = fileContent;
+                  }
+                } catch {
+                  content = fileContent;
+                }
+              }
+
+              // Validate and format date
+              let formattedDate;
+              try {
+                formattedDate = new Date(date).toISOString();
+              } catch {
+                formattedDate = new Date().toISOString();
+              }
+
               return {
                 id: file.name,
                 filename: file.name,
-                title: parsed.title || file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' '),
-                date: parsed.date || file.name.split('-')[0],
-                content: parsed.content || parsed.message || Object.values(parsed).slice(2).join('\n') || 'No content',
+                title: title,
+                date: formattedDate,
+                content: content || 'No content available',
                 rawContent: fileContent
               };
             } catch (error) {
@@ -61,9 +108,9 @@ export default async function handler(req, res) {
                 id: file.name,
                 filename: file.name,
                 title: file.name.replace(/^\d+-/, '').replace(/\.yml$/, '').replace(/_/g, ' '),
-                date: 'Unknown date',
-                content: 'Error loading content',
-                rawContent: ''
+                date: new Date().toISOString(),
+                content: 'Error loading content: ' + error.message,
+                rawContent: fileContent || ''
               };
             }
           })

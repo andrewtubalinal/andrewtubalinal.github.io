@@ -22,7 +22,7 @@ export default function Documentation() {
         setLoading(true);
         const res = await fetch("/api/docs");
         const data = await res.json();
-        
+
         if (data.success) {
           setDocs(data.docs);
         } else {
@@ -50,15 +50,35 @@ export default function Documentation() {
 
   const formatDate = (dateString: string) => {
     try {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+      const date = new Date(dateString);
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        // Try to extract timestamp from filename as fallback
+        const timestamp = selectedDoc?.filename.split("-")[0];
+        if (timestamp) {
+          const fallbackDate = new Date(parseInt(timestamp));
+          if (!isNaN(fallbackDate.getTime())) {
+            return fallbackDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+          }
+        }
+        return "Unknown date";
+      }
+
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
       });
     } catch {
-      return dateString;
+      return "Unknown date";
     }
   };
 
@@ -97,7 +117,7 @@ export default function Documentation() {
         }}
       >
         <p style={{ color: "red" }}>Error: {error}</p>
-        <button 
+        <button
           onClick={() => window.location.reload()}
           style={{
             marginTop: "1rem",
@@ -124,8 +144,10 @@ export default function Documentation() {
         fontFamily: "monospace",
       }}
     >
-      <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Documentation</h1>
-      
+      <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
+        Documentation
+      </h1>
+
       {docs.length === 0 ? (
         <p style={{ textAlign: "center" }}>No documents yet.</p>
       ) : (
@@ -155,19 +177,23 @@ export default function Documentation() {
               <h2 style={{ margin: "0 0 0.5rem 0", color: "lime" }}>
                 {doc.title}
               </h2>
-              <p style={{ 
-                margin: "0 0 0.5rem 0", 
-                color: "#ccc",
-                fontSize: "0.9rem" 
-              }}>
+              <p
+                style={{
+                  margin: "0 0 0.5rem 0",
+                  color: "#ccc",
+                  fontSize: "0.9rem",
+                }}
+              >
                 Created: {formatDate(doc.date)}
               </p>
-              <p style={{ 
-                margin: "0",
-                color: "#aaa",
-                fontSize: "0.9rem",
-                fontStyle: "italic"
-              }}>
+              <p
+                style={{
+                  margin: "0",
+                  color: "#aaa",
+                  fontSize: "0.9rem",
+                  fontStyle: "italic",
+                }}
+              >
                 Click to read full content...
               </p>
             </div>
@@ -231,21 +257,25 @@ export default function Documentation() {
             </button>
 
             {/* Modal Content */}
-            <h2 style={{ 
-              color: "lime", 
-              margin: "0 0 1rem 0",
-              paddingRight: "3rem"
-            }}>
+            <h2
+              style={{
+                color: "lime",
+                margin: "0 0 1rem 0",
+                paddingRight: "3rem",
+              }}
+            >
               {selectedDoc.title}
             </h2>
-            
-            <p style={{ 
-              color: "#ccc", 
-              margin: "0 0 1.5rem 0",
-              fontSize: "0.9rem",
-              borderBottom: "1px solid #333",
-              paddingBottom: "1rem"
-            }}>
+
+            <p
+              style={{
+                color: "#ccc",
+                margin: "0 0 1.5rem 0",
+                fontSize: "0.9rem",
+                borderBottom: "1px solid #333",
+                paddingBottom: "1rem",
+              }}
+            >
               Created: {formatDate(selectedDoc.date)}
             </p>
 
@@ -261,13 +291,15 @@ export default function Documentation() {
               {selectedDoc.content}
             </div>
 
-            <div style={{ 
-              marginTop: "2rem", 
-              paddingTop: "1rem",
-              borderTop: "1px solid #333",
-              fontSize: "0.8rem",
-              color: "#666"
-            }}>
+            <div
+              style={{
+                marginTop: "2rem",
+                paddingTop: "1rem",
+                borderTop: "1px solid #333",
+                fontSize: "0.8rem",
+                color: "#666",
+              }}
+            >
               File: {selectedDoc.filename}
             </div>
           </div>
