@@ -7,39 +7,41 @@ export default function CreateDocumentation() {
   const [status, setStatus] = useState(""); // replaced unused popup
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!title.trim() || !message.trim()) return;
+  if (!title.trim() || !message.trim()) return;
 
-    setStatus("Saving to GitHub...");
+  setStatus("Saving to GitHub...");
+
+  try {
+    const res = await fetch("/api/docs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, content: message }),
+    });
+
+    // ✅ Read body *only once*
+    const text = await res.text();
+    let data: any;
 
     try {
-      const res = await fetch("/api/docs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content: message }),
-      });
-
-      // ✅ Safely handle non-JSON errors
-      let data: any;
-      try {
-        data = await res.json();
-      } catch {
-        const text = await res.text();
-        throw new Error(text);
-      }
-
-      if (res.ok) {
-        setStatus("✅ Documented successfully!");
-        setTitle("");
-        setMessage("");
-      } else {
-        setStatus(`❌ Failed: ${data.message || "Unknown error"}`);
-      }
-    } catch (err: any) {
-      setStatus(`❌ Error: ${err.message}`);
+      data = JSON.parse(text);
+    } catch {
+      // If backend returned HTML/plain error
+      throw new Error(text);
     }
-  };
+
+    if (res.ok) {
+      setStatus("✅ Documented successfully!");
+      setTitle("");
+      setMessage("");
+    } else {
+      setStatus(`❌ Failed: ${data.message || "Unknown error"}`);
+    }
+  } catch (err: any) {
+    setStatus(`❌ Error: ${err.message}`);
+  }
+};
 
   return (
     <div
