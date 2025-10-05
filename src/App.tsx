@@ -90,7 +90,7 @@ function AppContent() {
           setError("");
           setIsWrong(false);
           setAccessGranted(true);
-
+          
           setTimeout(() => setFadeOut(true), 2800);
           setTimeout(() => {
             setUnlocked(true);
