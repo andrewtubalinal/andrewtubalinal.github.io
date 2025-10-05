@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useMemo } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 
 import "./css/fonts.css";
 import "./css/App.css";
@@ -15,7 +15,10 @@ import Logic from "./pages/infodb/logic";
 import CreateDocumentation from "./pages/CreateDocumentation";
 import Documentation from "./pages/Documentation";
 
-export default function App() {
+// 🔹 Moved the logic into a component so we can use useNavigate
+function AppContent() {
+  const navigate = useNavigate();
+
   const isMobile = window.innerWidth < 768;
   const mobileMessage = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * mobileMessages.length);
@@ -55,7 +58,7 @@ export default function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isWrong, setIsWrong] = useState(false); // ✅ Added this
+  const [isWrong, setIsWrong] = useState(false);
 
   useEffect(() => {
     document.title = unlocked
@@ -66,7 +69,7 @@ export default function App() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     setError("");
-    setIsWrong(false); // reset border when typing again
+    setIsWrong(false);
   };
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -91,12 +94,12 @@ export default function App() {
           setTimeout(() => setFadeOut(true), 2800);
           setTimeout(() => {
             setUnlocked(true);
-            window.location.href = data.route; // dynamically route
+            navigate(data.route); // ✅ React Router navigation instead of reload
           }, 3100);
         } else {
           setError(getRandomErrorMessage());
           setInput("");
-          setIsWrong(true); // ✅ highlight red border
+          setIsWrong(true);
         }
       } catch {
         setError("Server unreachable. Try again later.");
@@ -130,7 +133,7 @@ export default function App() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Authentication"
-            className={`retro-input ${isWrong ? "wrong" : ""}`} // ✅ dynamic border
+            className={`retro-input ${isWrong ? "wrong" : ""}`}
             autoFocus
             disabled={loading}
           />
@@ -144,14 +147,21 @@ export default function App() {
   }
 
   return (
+    <Routes>
+      <Route path="/" element={<InfoDB />} />
+      <Route path="/infodb/program" element={<Program />} />
+      <Route path="/infodb/logic" element={<Logic />} />
+      <Route path="/create-documentation" element={<CreateDocumentation />} />
+      <Route path="/documentation" element={<Documentation />} />
+    </Routes>
+  );
+}
+
+// 🔹 Wrap AppContent in Router so useNavigate works
+export default function App() {
+  return (
     <Router>
-      <Routes>
-        <Route path="/" element={<InfoDB />} />
-        <Route path="/infodb/program" element={<Program />} />
-        <Route path="/infodb/logic" element={<Logic />} />
-          <Route path="/create-documentation" element={<CreateDocumentation />} />
-  <Route path="/documentation" element={<Documentation />} />
-      </Routes>
+      <AppContent />
     </Router>
   );
 }
