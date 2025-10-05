@@ -177,3 +177,8 @@ body {
   justify-content: end;
   padding: 0 20px;
 }
+
+.retro-input.wrong {
+  border-color: red !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}

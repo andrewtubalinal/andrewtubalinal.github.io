@@ -55,6 +55,7 @@ export default function App() {
   const [fadeOut, setFadeOut] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isWrong, setIsWrong] = useState(false); // ✅ Added this
 
   useEffect(() => {
     document.title = unlocked
@@ -64,7 +65,8 @@ export default function App() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    setError(""); // Clear any previous error
+    setError("");
+    setIsWrong(false); // reset border when typing again
   };
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -84,14 +86,17 @@ export default function App() {
         if (data.success) {
           setAccessGranted(true);
           setError("");
+          setIsWrong(false);
           setTimeout(() => setFadeOut(true), 2800);
           setTimeout(() => setUnlocked(true), 3100);
         } else {
           setError(getRandomErrorMessage());
           setInput("");
+          setIsWrong(true); // ✅ highlight red border
         }
       } catch {
         setError("Server unreachable. Try again later.");
+        setIsWrong(true);
       } finally {
         setLoading(false);
       }
@@ -121,17 +126,19 @@ export default function App() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Authentication"
-            className="retro-input"
+            className={`retro-input ${isWrong ? "wrong" : ""}`} // ✅ dynamic border
             autoFocus
             disabled={loading}
           />
           {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
-          {loading && <p style={{ color: "#0f0", marginTop: "0.5rem" }}>Verifying...</p>}
+          {loading && (
+            <p style={{ color: "#0f0", marginTop: "0.5rem" }}>Verifying...</p>
+          )}
         </div>
       </div>
     );
   }
-
+  
   return (
     <Router>
       <Routes>
