@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./css/Background.css";
+import "./css/Resume.css";
 import Navigation from "./Navigation";
 import LandingPage from "./pages/LandingContent";
 import Philosophy from "./Philosophy";
+import Resume from "./Resume";
 import Documentation from "./pages/Documentation";
 
 export default function InfoDB() {
@@ -17,6 +19,8 @@ export default function InfoDB() {
 
       case "Philosophy":
         return <Philosophy />;
+      case "Resume":
+        return <Resume />;  
       default:
         return <LandingPage />;
     }

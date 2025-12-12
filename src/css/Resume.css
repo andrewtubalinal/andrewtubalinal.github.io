@@ -1,0 +1,253 @@
+/* Resume Styles */
+.resume-container {
+  padding: 2rem;
+  background: black;
+  color: lime;
+  font-family: "Courier New", monospace;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadein 0.5s ease-out forwards;
+}
+
+.resume-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  border-bottom: 2px solid lime;
+  padding-bottom: 1.5rem;
+}
+
+.glitch-title {
+  font-family: "SD Dystopian", monospace;
+  font-size: 4rem;
+  text-transform: uppercase;
+  color: #00ff88;
+  margin-bottom: 1rem;
+  animation: glitch 2s infinite;
+}
+
+.resume-contact {
+  font-family: "LeniaMono", monospace;
+  color: cyan;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.resume-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.resume-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.section-title {
+  font-family: "SD Dystopian", monospace;
+  font-size: 1.8rem;
+  color: #00ffcc;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid lime;
+  padding-bottom: 0.5rem;
+}
+
+.terminal-box {
+  border: 2px solid lime;
+  padding: 1.5rem;
+  background: rgba(0, 255, 136, 0.05);
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.terminal-box:hover {
+  border-color: cyan;
+}
+
+.terminal-text {
+  color: #00ff88;
+  line-height: 1.6;
+  font-family: "Courier New", monospace;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-category {
+  margin-bottom: 1rem;
+}
+
+.skill-title {
+  font-family: "LeniaMono", monospace;
+  color: cyan;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-list li {
+  color: lime;
+  padding: 0.3rem 0;
+  border-bottom: 1px dotted rgba(0, 255, 136, 0.3);
+  font-size: 0.9rem;
+}
+
+.experience-item {
+  margin-bottom: 2rem;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.job-title {
+  font-family: "LeniaMono", monospace;
+  color: #00ffcc;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.experience-date {
+  color: cyan;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.company-name {
+  color: lime;
+  font-style: italic;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.experience-list li {
+  color: #00ff88;
+  padding: 0.3rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.experience-list li:before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: cyan;
+}
+
+.degree, .project-name {
+  font-family: "LeniaMono", monospace;
+  color: #00ffcc;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.institution, .project-desc, .education-details, .project-tech {
+  color: lime;
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.resume-footer {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 2px solid lime;
+  margin-top: 2rem;
+  background: rgba(0, 255, 136, 0.05);
+}
+
+/* Hover effects */
+.skill-list li:hover,
+.experience-list li:hover {
+  color: cyan;
+  transform: translateX(5px);
+  transition: all 0.3s ease;
+}
+
+.terminal-box:hover .skill-list li:before {
+  content: ">>";
+  color: #00ff88;
+}
+
+/* Scrollbar for resume if needed */
+.resume-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.resume-container::-webkit-scrollbar-track {
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.resume-container::-webkit-scrollbar-thumb {
+  background: lime;
+  border-radius: 5px;
+}
+
+.resume-container::-webkit-scrollbar-thumb:hover {
+  background: cyan;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .resume-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .resume-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 1rem;
+  }
+  
+  .glitch-title {
+    font-size: 2.5rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .experience-date {
+    margin-top: 0.2rem;
+  }
+}

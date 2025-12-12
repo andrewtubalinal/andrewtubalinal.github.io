@@ -6,7 +6,7 @@ interface NavigationProps {
 }
 
 export default function Navigation({ activePage, setActivePage }: NavigationProps) {
-  const navItems = ["Info DB", "Documentation", "Philosophy"];
+  const navItems = ["Info DB", "Documentation", "Philosophy", "Resume"];
   
   return (
     <nav className="navigation-bar">

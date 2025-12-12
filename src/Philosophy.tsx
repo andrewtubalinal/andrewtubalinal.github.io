@@ -17,7 +17,7 @@ export default function Philosophy() {
         <br />
         I believe in silent influence, leading through consistent actions, clear communication, and professional practices. Rather than forcing ideas, I demonstrate value through results. People naturally gravitate toward those who show rather than just tell.
         <br /><br />
-
+        
         <strong>I Bring Versatility and Adaptability</strong>
         <br />
         I excel at touching multiple areas with genuine skill, from front-end development to design, music composition to asset creation. I'm not the deepest specialist, but I bring breadth of capability and the ability to see connections across different domains.
